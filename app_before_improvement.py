@@ -175,16 +175,8 @@ def title(text, caption=None):
 
 
 def assess(rainfall, slope, threshold):
-    score = min(100, rainfall * 0.6 + slope * 1.2)
-
-    level = (
-        "HIGH"
-        if score >= threshold
-        else "MEDIUM"
-        if score >= threshold * 0.6
-        else "LOW"
-    )
-
+    score = rainfall * 0.6 + slope * 1.2
+    level = "HIGH" if score >= threshold else "MEDIUM" if score >= threshold * 0.6 else "LOW"
     return score, level
 
 
@@ -198,7 +190,7 @@ def chart(figure, height=300):
 
 
 def current():
-    location = st.session_state.get("location", "Guwahati")
+    location = st.session_state.get("location", "Location C")
     threshold = st.session_state.get("threshold", 50)
     data = LOCATIONS[location]
     score, level = assess(data["rainfall"], data["slope"], threshold)
@@ -823,7 +815,7 @@ def prediction():
     with controls:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         title("Assessment inputs", "These are the existing application inputs.")
-        location = st.selectbox("Select location", list(LOCATIONS), index=list(LOCATIONS).index(st.session_state.get("location", "Guwahati")))
+        location = st.selectbox("Select location", list(LOCATIONS), index=list(LOCATIONS).index(st.session_state.get("location", "Location C")))
         date = st.date_input("Assessment date")
         threshold = st.slider("Risk threshold", 0, 100, st.session_state.get("threshold", 50))
         st.session_state.update({"location": location, "threshold": threshold})
