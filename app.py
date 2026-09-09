@@ -191,10 +191,18 @@ def assess(rainfall, slope, threshold):
 def badge(level):
     return f'<span class="badge badge-{level.lower()}">{level} RISK</span>'
 
-
 def chart(figure, height=300):
-    figure.update_layout(height=height, margin=dict(l=10, r=10, t=35, b=10), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(family="DM Sans", color="#18231e", size=12), title_font=dict(size=15, color="#123c2b"))
-    st.plotly_chart(figure, use_container_width=True, config={"displayModeBar": False})
+    figure.update_layout(
+        height=height,
+        margin=dict(l=10, r=10, t=35, b=10),
+        paper_bgcolor="rgba(0,0,0,0)"
+    )
+
+    st.plotly_chart(
+        figure,
+        width="stretch",
+        config={"displayModeBar": False}
+    )
 
 
 def current():
